@@ -19,3 +19,26 @@ Kolmas tavoite on testata Wordpress-sovelluksen ja virtuaalipalvelimenturvallisu
 Projektilla on valmiiksi mitoitettu aikataulu. Projekti toteutetaan Haaga-Helia ammattikorkeakoulun Linux-projekti -kurssin projektityönä. Kurssi alkoi viikolla 13 ja projektin on oltava valmiina viikolla 17. Viikolla 16 on tilannekatsaus.
 
 Ennen tilannekatsausta ensimmäinen välitavoite on valmiina ja osa toisesta välitavoitteestakin on työstettynä tuohon aikaan mennessä. Viikkoon 17, eli deadlinea, mennessä koko projekti on valmis, jolloin voidaan puhua versiosta 1.0. Jatkuvuuden takia dokumentaatio ja versionhallinta tulee olemaan suuressa roolissa.
+
+	Viikko 13:
+	- Projektityöehdotuksen esittely ja työn aloitus
+	
+	Viikko 14:
+	- Projektityön suunnittelua
+	
+	Viikko 15:
+	- Ympäristön pystyttäminen ja Wordpressin asennus
+	- Ylläpitoprosessien suunnittelua
+
+	Viikko 16:
+	- Ylläpitosuunnitelma valmis (varmuuskopionti jne.)
+
+	Viikko 17:
+	- Palvelimen ja sovelluksen kovettamista
+
+	Viikko 18:
+	- Dokumentaation viimeistelyä
+
+	Viikko 19:
+	- Projektin esittely
+	- Palvelun ottaminen tuotantokäyttöön
