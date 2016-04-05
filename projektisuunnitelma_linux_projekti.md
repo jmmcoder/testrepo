@@ -1,5 +1,9 @@
 # Projektisuunnitelma
-### Linux-projekti (ICT4TN018-6)
+##### Linux-projekti (ICT4TN018-6)
+
+## Projektiorganisaatio
+
+Projektin vetää ja toteuttaa Juha-Matti Ohvo. Toimeksiantajana toimii Haaga-Helian tietojenkäsittelyn ainejärjestö Atkins ry.
 
 ## Projektisuunnitelma
 
@@ -31,6 +35,7 @@ Ennen tilannekatsausta ensimmäinen välitavoite on valmiina ja osa toisesta vä
 	- Ylläpitoprosessien suunnittelua
 
 	Viikko 16:
+	- Palvelinympäristö ja Wordpress asennettuna ja konfiguroituna
 	- Ylläpitosuunnitelma valmis (varmuuskopionti jne.)
 
 	Viikko 17:
