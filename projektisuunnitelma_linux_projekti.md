@@ -5,6 +5,14 @@
 
 Projektin vetää ja toteuttaa Juha-Matti Ohvo. Toimeksiantajana toimii Haaga-Helian tietojenkäsittelyn ainejärjestö Atkins ry.
 
+## Palvelinympäristö
+
+	- DigitalOceanin virtuaalipalvelin
+		- 512 MB RAM / 1 cpu
+		- 20 GB SSD
+		- 1 TB Transfer
+	- Ubuntu Server 14.04.4 LTS
+
 ## Projektisuunnitelma
 
 Kurssiprojektin tavoitteena on asentaa Wordpress-sisällönhallintajärjestelmä Ubuntu-pohjaiselle virtuaalipalvelimelle. Sivut tulevat Atkins ry:n viralliseen käyttöön, joten kyseessä on toimeksianto.
