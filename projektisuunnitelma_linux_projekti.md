@@ -32,22 +32,26 @@ Projektilla on valmiiksi mitoitettu aikataulu. Projekti toteutetaan Haaga-Helia 
 
 Ennen tilannekatsausta ensimmäinen välitavoite on valmiina ja osa toisesta välitavoitteestakin on työstettynä tuohon aikaan mennessä. Viikkoon 17, eli deadlinea, mennessä koko projekti on valmis, jolloin voidaan puhua versiosta 1.0. Jatkuvuuden takia dokumentaatio ja versionhallinta tulee olemaan suuressa roolissa.
 
-	Viikko 13:
+	Viikko 14:
 	- Projektityöehdotuksen esittely ja työn aloitus
 	
-	Viikko 14:
-	- Projektityön suunnittelua
-	
 	Viikko 15:
-	- Ympäristön pystyttäminen ja Wordpressin asennus
-	- Ylläpitoprosessien suunnittelua
+	- Palvelimen ja sovelluksen asennus
+		- Ubuntu asennettu virtuaalipalvelimelle
+		- LAMP-sovelluspino asennettu
+
+	- Palvelimen konfiguroitu hyvien tietoturvakäytäntöjen mukaisesti
+		- SSH-avaimet
+		- Palomuuri konfiguroitu avaamalla vain tarvittavat sovellusportit
+		- SANS Linux Security Checklist
 
 	Viikko 16:
-	- Palvelinympäristö ja Wordpress asennettuna ja konfiguroituna
-	- Ylläpitosuunnitelma valmis (varmuuskopionti jne.)
+	- Dokumentointi asennus ja konfigurointitoimeenpisteistä valmiina esiteltäväksi
+	- Ylläpitosuunnitelma valmis
 
 	Viikko 17:
-	- Palvelimen ja sovelluksen kovettamista
+	- Suoritetaan palvelimen ja Wordpress-sovelluksen tietoturvan testaamista
+		- Wordpress skannataan mm. niktolla
 
 	Viikko 18:
 	- Dokumentaation viimeistelyä
