@@ -70,10 +70,133 @@ Mennään kotihakemistoomme (käyttäjänimemme on vagrant) ja luodaan sinne ali
 
 	$ mkdir ~/public_html
 
-####MySQL:n konfigurointi ja tietokannan luonti
+####2.2 MySQL:n konfigurointi ja tietokannan luonti
 
 Olemme asentaneet mysql-server -nimisen paketin ja annoimme pääkäyttäjälle salasanan. Asennetaan uusi tietokanta ja ajetaan turvallinen asennus (Secure installation).
 
 	$ sudo mysql_install_db && sudo mysql_secure_installation
+
+MySQL asensi tietokannan js seuraavaksi on vuorossa konfigurointi. Annetaan MySQL:n pääkäyttäjän salasana ja teemme seuraavanlaiset valinnat.
+
+	NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
+	SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+
+	In order to log into MySQL to secure it, we'll need the current
+	password for the root user.  If you've just installed MySQL, and
+	you haven't set the root password yet, the password will be blank,
+	so you should just press enter here.
+
+	Enter current password for root (enter for none): 
+	OK, successfully used password, moving on...
+
+	Setting the root password ensures that nobody can log into the MySQL
+	root user without the proper authorisation.
+
+	You already have a root password set, so you can safely answer 'n'.
+
+	Change the root password? [Y/n] n
+	 ... skipping.
+
+	By default, a MySQL installation has an anonymous user, allowing anyone
+	to log into MySQL without having to have a user account created for
+	them.  This is intended only for testing, and to make the installation
+	go a bit smoother.  You should remove them before moving into a
+	production environment.
+
+	Remove anonymous users? [Y/n] y
+	 ... Success!
+
+	Normally, root should only be allowed to connect from 'localhost'.  This
+	ensures that someone cannot guess at the root password from the network.
+
+	Disallow root login remotely? [Y/n] y
+	 ... Success!
+
+	By default, MySQL comes with a database named 'test' that anyone can
+	access.  This is also intended only for testing, and should be removed
+	before moving into a production environment.
+
+	Remove test database and access to it? [Y/n] y
+	 - Dropping test database...
+	ERROR 1008 (HY000) at line 1: Can't drop database 'test'; database doesn't exist
+	 ... Failed!  Not critical, keep moving...
+	 - Removing privileges on test database...
+	 ... Success!
+
+	Reloading the privilege tables will ensure that all changes made so far
+	will take effect immediately.
+
+	Reload privilege tables now? [Y/n] y
+	 ... Success!
+
+	Cleaning up...
+
+
+
+	All done!  If you've completed all of the above steps, your MySQL
+	installation should now be secure.
+
+	Thanks for using MySQL!
+
+Kirjaudutaan MySQL:ään pääkäyttäjällä.
+
+	$ mysql -u root -p
+
+Luodaan Wordpressiä varten uusi tietokanta ja sitä varten käyttäjä, jolle annamme täydet oikeudet luomaamme tietokantaan.
+
+HUOM! Antamamme salasana ei ole virallinen salasana, vaan esimerkki tarpeeksi hyvästä salasanasta.
+
+	mysql> CREATE DATABASE ATKINS_SIVU;
+	Query OK, 1 row affected (0.00 sec)
+
+	mysql> CREATE USER 'atkins'@'localhost' identified by 'Rt#2Perunapiirakka7!hyva';
+	Query OK, 1 row affected (0.00 sec)
+
+	mysql> GRANT ALL ON ATKINS_SIVU.* TO 'atkins'@'localhost' IDENTIFIED BY 'Rt#2Perunapiirakka7!hyva';
+	Query OK, 1 row affected (0.00 sec)
+
+Poistutaan MySQL:stä "exit"-komennolla.
+
+####2.3 PHP5:n konfigurointi
+
+Aloitetaan ottamalla PHP5 käyttöön Apachen puolella muokkaamalla Apachen PHP-konfiguraatiotiedostoa.
+
+	$ sudoedit /etc/apache2/mods-enabled/php5.conf
+
+Kommentoidaan tiedoston viimeisimmät rivit seuraavanlaisesti:
+
+	# Running PHP scripts in user directories is disabled by default
+	#
+	# To re-enable PHP in user directories comment the following lines
+	# (from <IfModule ...> to </IfModule>.) Do NOT set it to On as it
+	# prevents .htaccess files from disabling it.
+	#<IfModule mod_userdir.c>
+	#    <Directory /home/*/public_html>
+	#        php_admin_flag engine Off
+	#    </Directory>
+	#</IfModule>
+
+Käynnistetään Apache uudelleen.
+
+	$ sudo service apache2 restart
+
+Testataan php:n toimivuus palvelin puolella tekemällä "public_html" -hakemistoon pieni php-skripti, joka suorittaa kertolaskun.
+
+	$ nano ~/public_html/kertolasku.php
+
+Kirjoitetaan tiedostoon php-skripti:
+
+	<?php
+		print(20 * 5);
+	?>
+
+Mennään verkkosivuille ja tarkastetaan seuraavan php-skriptin toimivuus.
+
+	$ firefox http://10.0.0.20/~vagrant/kertolasku.php
+
+Sivuilla pitäisi olla tulostettuna "100" ja näin myös onkin. Täten php toimii palvelimen puolella.
+
+LAMP-sovelluspino on asennettu onnistuneesti virtuaalipalvelimelle. Käytämme myöhemmin samoja käytäntöjä, kun teemme asennuksen varsinaiselle palvelimelle viikkoon 17 mennessä.
 
 
