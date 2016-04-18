@@ -49,13 +49,14 @@ Aloitetaan asentamalla kaikki LAMP-pinon vaativat paketit.
 
 Saamme MySQL:n asennusikkunan, joka pyytää MySQL:n pääkäyttäjälle salasanaa. Luodaan uusi vahva salasana ja painetaan enter, jolloin paketin asennus suoriutuu loppuun.
 
+
 ####2.1 Apachen konfigurointi
 
 Ensiksi varmistetaan, että Apache asentui koneelle onnistuneesti.
 
 	$ dpkg -s apache2|grep installed
 	
-	$ Status: install ok installed
+	Status: install ok installed
 
 Aloitetaan poistamalla ensiksi /var/www/html -hakemisto, jossa Apache pyörittää sivuja tällä hetkellä. Haluamme kehittää web-sivuja käyttäjän kotihakemistossa, jolloin emme tarvitse pääkäyttäjäoikeuksia, joita nykyinen hakemisto vaatisi.
 
@@ -69,6 +70,7 @@ Otetaan käyttäjien kotihakemistot käyttöön.
 Mennään kotihakemistoomme (käyttäjänimemme on vagrant) ja luodaan sinne alihakemisto "public_html".
 
 	$ mkdir ~/public_html
+
 
 ####2.2 MySQL:n konfigurointi ja tietokannan luonti
 
@@ -158,6 +160,7 @@ HUOM! Antamamme salasana ei ole virallinen salasana, vaan esimerkki tarpeeksi hy
 
 Poistutaan MySQL:stä "exit"-komennolla.
 
+
 ####2.3 PHP5:n konfigurointi
 
 Aloitetaan ottamalla PHP5 käyttöön Apachen puolella muokkaamalla Apachen PHP-konfiguraatiotiedostoa.
@@ -191,12 +194,56 @@ Kirjoitetaan tiedostoon php-skripti:
 		print(20 * 5);
 	?>
 
-Mennään verkkosivuille ja tarkastetaan seuraavan php-skriptin toimivuus.
+Mennään verkkosivuille ja tarkastetaan seuraavan php-skriptin toimivuus työasemalta.
 
-	$ firefox http://10.0.0.20/~vagrant/kertolasku.php
+	http://10.0.0.20/~vagrant/kertolasku.php
 
 Sivuilla pitäisi olla tulostettuna "100" ja näin myös onkin. Täten php toimii palvelimen puolella.
 
 LAMP-sovelluspino on asennettu onnistuneesti virtuaalipalvelimelle. Käytämme myöhemmin samoja käytäntöjä, kun teemme asennuksen varsinaiselle palvelimelle viikkoon 17 mennessä.
 
 
+###3 Wordpressin asentaminen
+
+Aloitetaan lataamalla Wordpressin asennuspaketti käyttäjämme kotihakemistoon "public_html" -hakemiston alle ja puretaan se sinne.
+
+	$ wget http://wordpress.org/latest.tar.gz
+	$ tar xf latest.tar.gz
+
+Hakemistoon ilmestyy "wordpress"-hakemisto. Tämän jälkeen suoritetaan Wordpressin asennus työasemalta.
+
+	http://10.0.0.20/~vagrant/wordpress 
+
+Sivusto pyytää käyttäjätunnuksemme MySQL-tietokantaan ja tietokannan nimen, jonne Wordpressin tiedot tallennetaan. Käytämme luomamme "ATKINS_SIVU"-kantaa ja käyttäjäksi "atkins". Taulukoiden etuliite muutetaan tietoturvasyistä (automatisoidut hyökkäykset) wp_:stä df_:ksi.
+
+Asennus etenee ja nyt se ilmoittaa ettei "wp-config.php" -tiedostoa löydy. Tällaista ei ole luotu Wordpressin asennuksen yhteydessä, joten luomme sen itse "wordpress"-hakemiston alle. Ilmoituksessa oleva koodi kopioidaan tekemäämme tiedostoon.
+
+	$ nano wordpress/wp-config.php
+
+Tämän jälkeen jatketaan asennusta. Seuraavaksi ongelmia ei ilmennyt ja annamme sivustollemme otsikon ja pääkäyttäjän nimen ja salasanan.
+
+	Title: Atkins ry
+	Käyttäjänimi (ei virallinen): atkinsadmin
+	Salasana (ei virallinen): 20k_pr4/latintorTTU39#!
+
+Suoritetaan asennus loppuun ja pääsemme kirjautumaan Wordpress-sivuillemme.
+
+
+###4 Ylläpitosuunnitelma
+
+Sivuston ylläpitämistä varten on luotu ylläpitosuunnitelma, jota tullaan täydentämään projektin edetessä.
+
+####4.1 Ylläpitokäytännöt
+
+Palvelimen ja Wordpress-sivun ylläpitokäytäntöihin kuuluu muun muassa päivitykset, jatkuva monitorointi, lokitiedostojen analysoiminen ja hyökkäysyritysten tunnistaminen ja estäminen. Ylläpidon helpottamiseksi projektin loppupuolella toteutetaan BPMN-prosessikaaviot, mitä tehdää missäkin ylläpitotehtävässä. Tällöin varmistetaan parhaiden käytäntöjen käyttäminen ja vältetään samalla virhetilanteita, esimerkiksi varmuuskopioiden unohtaminen.
+
+Ajankäyttö on myös huomioitava ylläpidossa, koska koko projektista huolehtii ainoastaa yksi henkilö. Tällöin on varmistettava, että ylläpito on tarpeeksi tehokasta. Ylläpitokäytäntöjen on täten oltava mahdollisimman yksikertaisia ja nopeita, mutta samalla vaalia hyviä käytäntöjä ja huomioida samalla tietoturvanäkökulma. Ylläpitoprosessit on tällöin kuvatta tarkasti ja dokumentaation on oltava ajan tasalla, jotta kaikki tehdyt ylläpitotoimet ovat tallessa. Tällöin vikatilanteiden selvittäminenkin helpottuu, kun tiedetään tarkasti mitä muutoksia järjestelmään on tehty.
+
+Ylläpidon jatkuvuus on huomioitava, mikäli projekti siirtyy toisen ihmisen tai ryhmän hoidettavaksi. Tällöin ensisijaisesti dokumentaation tulee olla kunnossa, joten dokumentaatio on huomioitava yhtenä ydinprosessina yläpidon näkökulmasta. Sen on oltava selkeää ja helposti tulkitavaa. Prosessikaavioiden selkeys on tärkeää, jotta työtä jatkava taho hahmottaa, miten palvelimesta ja Wordpressista on pidetty huolta. 
+
+Ylläpitoprosessitkaan eivät ole koskaan valmiita, vaan osana ylläpitosuunnitelmaa on kehittää prosesseja tarpeen mukaan. Tällöin mittareina ovat lähinnä prosessien tehokkuus ja hyöty. Prosesseihin tapatuvat muutoksetkin tullaan dokumentoimaan selkeästi.
+
+
+Lähteet:
+
+http://cs.joensuu.fi/tSoft/yllapito.htm
